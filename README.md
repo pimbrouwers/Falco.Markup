@@ -12,7 +12,7 @@ let doc =
 renderHtml doc
 ```
 
-Falco.Markup is an XML markup module that can be used to produce _any_ form of angle-bracket markup (i.e. HTML, SVG, XML etc.).
+[Falco.Markup](https://github.com/pimbrouwers/Falco.Markup) is an XML markup module that can be used to produce _any_ form of angle-bracket markup (i.e. HTML, SVG, XML etc.).
 
 ## Key Features
 
@@ -31,7 +31,7 @@ Falco.Markup is an XML markup module that can be used to produce _any_ form of a
 
 Falco.Markup is broken down into three primary modules. `Elem`, `Attr` and `Text`, which are used to generate elements, attributes and text nodes respecitvely. Each module contain a suite of functions mapping to the various element/attribute/node names. But can also be extended to create custom elements and attributes.
 
-Element are broken down primarily into two types, `ParentNode` or `SelfClosingNode`.
+Primary elements are broken down into two types, `ParentNode` or `SelfClosingNode`.
 
 `ParentNode` elements are those that can contain other elements. Represented as functions that receive two inputs: attributes and optionally elements.
 
@@ -136,9 +136,32 @@ let doc (person : Person) =
     ]
 ```
 
-Rumor has it that the Falco [creator](https://twitter.com/pim_brouwers) makes a dog sound every time he uses `Text.rawf`.
+## Custom Elements & Attributes
 
-> **Note**: I am the creator, and this is entirely true.
+Every effort has been taken to ensure the HTML and SVG specs are mapped to functions in the module. In the event an element or attribute you need is missing, you can either file an [issue](https://github.com/pimbrouwers/Falco.Markup/issues), or more simply extend the module in your project.
+
+An example creating custom XML elements and using them to create a structured XML document:
+
+```fsharp
+open Falco.Makrup
+
+module Elem =
+    let books = Elem.create "books"
+    let book = Elem.create "book"
+    let name = Elem.create "name"
+
+module Attr =
+    let soldOut = Attr.createBool "soldout"
+
+let xmlDoc =
+    Elem.books [] [
+        Elem.book [ Attr.soldOut ] [
+            Elem.name [] [ Text.raw "To Kill A Mockingbird" ]
+        ]
+    ]
+
+let xml = renderXml xmlDoc
+```
 
 ## SVG
 
@@ -208,38 +231,10 @@ let homepage =
     ]
 ```
 
-## Custom Elements & Attributes
-
-Every effort has been taken to ensure the HTML and SVG specs are mapped to functions in the module. In the event an element or attribute you need is missing, you can either file an [issue](https://github.com/pimbrouwers/Falco/issues), or more simply extend the module in your project.
-
-
-An example creating custom XML elements and using them to create a structured XML document:
-
-```fsharp
-open Falco.Makrup
-
-module Elem =
-    let books = Elem.create "books"
-    let book = Elem.create "book"
-    let name = Elem.create "name"
-
-module Attr =
-    let soldOut = Attr.createBool "soldout"
-
-let xmlDoc =
-    Elem.books [] [
-        Elem.book [ Attr.soldOut ] [
-            Elem.name [] [ Text.raw "To Kill A Mockingbird" ]
-        ]
-    ]
-
-let xml = renderXml xmlDoc
-```
-
 ## Find a bug?
 
-There's an [issue](https://github.com/pimbrouwers/Falco/issues) for that.
+There's an [issue](https://github.com/pimbrouwers/Falco.Markup/issues) for that.
 
 ## License
 
-Built with ♥ by [Pim Brouwers](https://github.com/pimbrouwers) in Toronto, ON. Licensed under [Apache License 2.0](https://github.com/pimbrouwers/Falco/blob/master/LICENSE).
+Built with ♥ by [Pim Brouwers](https://github.com/pimbrouwers) in Toronto, ON. Licensed under [Apache License 2.0](https://github.com/pimbrouwers/Falco.Markup/blob/master/LICENSE).
