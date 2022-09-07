@@ -136,59 +136,7 @@ let doc (person : Person) =
     ]
 ```
 
-## Custom Elements & Attributes
-
-Every effort has been taken to ensure the HTML and SVG specs are mapped to functions in the module. In the event an element or attribute you need is missing, you can either file an [issue](https://github.com/pimbrouwers/Falco.Markup/issues), or more simply extend the module in your project.
-
-An example creating custom XML elements and using them to create a structured XML document:
-
-```fsharp
-open Falco.Makrup
-
-module Elem =
-    let books = Elem.create "books"
-    let book = Elem.create "book"
-    let name = Elem.create "name"
-
-module Attr =
-    let soldOut = Attr.createBool "soldout"
-
-let xmlDoc =
-    Elem.books [] [
-        Elem.book [ Attr.soldOut ] [
-            Elem.name [] [ Text.raw "To Kill A Mockingbird" ]
-        ]
-    ]
-
-let xml = renderXml xmlDoc
-```
-
-## SVG
-
-The vast majority of the SVG spec has been mapped to element and attributes functions. There is also an SVG template to help initialize a new drawing with a valid viewbox.
-
-```fsharp
-open Falco.Markup
-open Falco.Markup.Svg
-
-// https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text#example
-let svgDrawing =
-    Templates.svg (0, 0, 240, 80) [
-        Elem.style [] [
-            Text.raw ".small { font: italic 13px sans-serif; }"
-            Text.raw ".heavy { font: bold 30px sans-serif; }"
-            Text.raw ".Rrrrr { font: italic 40px serif; fill: red; }"
-        ]
-        Elem.text [ Attr.x "20"; Attr.y "35"; Attr.class' "small" ] [ Text.raw "My" ]
-        Elem.text [ Attr.x "40"; Attr.y "35"; Attr.class' "heavy" ] [ Text.raw "cat" ]
-        Elem.text [ Attr.x "55"; Attr.y "55"; Attr.class' "small" ] [ Text.raw "is" ]
-        Elem.text [ Attr.x "65"; Attr.y "55"; Attr.class' "Rrrrr" ] [ Text.raw "Grumpy!" ]
-    ]
-
-let svg = renderNode svgDrawing
-```
-
-## Merging Attributes
+### Merging Attributes
 
 The markup module allows you to easily create components, an excellent way to reduce code repetition in your UI. To support runtime customization, it is advisable to ensure components (or reusable markup blocks) retain a similar function "shape" to standard elements. That being, `XmlAttribte list -> XmlNode list -> XmlNode`.
 
@@ -229,6 +177,58 @@ let homepage =
         heading [ Attr.class' "purple" ] [ Text.raw "This is what we're all about" ]
         Elem.p [] [ Text.raw "Lorem ipsum dolor sit amet, consectetur adipiscing."]
     ]
+```
+
+## Custom Elements & Attributes
+
+Every effort has been taken to ensure the HTML and SVG specs are mapped to functions in the module. In the event an element or attribute you need is missing, you can either file an [issue](https://github.com/pimbrouwers/Falco.Markup/issues), or more simply extend the module in your project.
+
+An example creating custom XML elements and using them to create a structured XML document:
+
+```fsharp
+open Falco.Makrup
+
+module Elem =
+    let books = Elem.create "books"
+    let book = Elem.create "book"
+    let name = Elem.create "name"
+
+module Attr =
+    let soldOut = Attr.createBool "soldout"
+
+let xmlDoc =
+    Elem.books [] [
+        Elem.book [ Attr.soldOut ] [
+            Elem.name [] [ Text.raw "To Kill A Mockingbird" ]
+        ]
+    ]
+
+let xml = renderXml xmlDoc
+```
+
+## SVG
+
+Much of the SVG spec has been mapped to element and attributes functions. There is also an SVG template to help initialize a new drawing with a valid viewbox.
+
+```fsharp
+open Falco.Markup
+open Falco.Markup.Svg
+
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text#example
+let svgDrawing =
+    Templates.svg (0, 0, 240, 80) [
+        Elem.style [] [
+            Text.raw ".small { font: italic 13px sans-serif; }"
+            Text.raw ".heavy { font: bold 30px sans-serif; }"
+            Text.raw ".Rrrrr { font: italic 40px serif; fill: red; }"
+        ]
+        Elem.text [ Attr.x "20"; Attr.y "35"; Attr.class' "small" ] [ Text.raw "My" ]
+        Elem.text [ Attr.x "40"; Attr.y "35"; Attr.class' "heavy" ] [ Text.raw "cat" ]
+        Elem.text [ Attr.x "55"; Attr.y "55"; Attr.class' "small" ] [ Text.raw "is" ]
+        Elem.text [ Attr.x "65"; Attr.y "55"; Attr.class' "Rrrrr" ] [ Text.raw "Grumpy!" ]
+    ]
+
+let svg = renderNode svgDrawing
 ```
 
 ## Find a bug?
