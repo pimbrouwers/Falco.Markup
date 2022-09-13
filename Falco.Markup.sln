@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{795C5C1E-4386-49BE-8B93-CB0722AC6220}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Falco.Markup", "src\Falco.Markup\Falco.Markup.fsproj", "{06D04004-6DB3-4522-8EFA-E5239219EF0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{25A4B987-EB43-4351-A7CD-C5451613B590}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Falco.Markup.Tests", "test\Falco.Markup.Tests\Falco.Markup.Tests.fsproj", "{A6AADC18-B737-4CB4-8B35-857E9F94C5CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06D04004-6DB3-4522-8EFA-E5239219EF0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06D04004-6DB3-4522-8EFA-E5239219EF0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06D04004-6DB3-4522-8EFA-E5239219EF0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06D04004-6DB3-4522-8EFA-E5239219EF0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6AADC18-B737-4CB4-8B35-857E9F94C5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6AADC18-B737-4CB4-8B35-857E9F94C5CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6AADC18-B737-4CB4-8B35-857E9F94C5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6AADC18-B737-4CB4-8B35-857E9F94C5CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{06D04004-6DB3-4522-8EFA-E5239219EF0D} = {795C5C1E-4386-49BE-8B93-CB0722AC6220}
+		{A6AADC18-B737-4CB4-8B35-857E9F94C5CA} = {25A4B987-EB43-4351-A7CD-C5451613B590}
+	EndGlobalSection
+EndGlobal
