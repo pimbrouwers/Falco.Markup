@@ -7,20 +7,6 @@ open FsUnit.Xunit
 open Xunit
 
 [<Fact>]
-let ``Attr.merge should combine two XmlAttribute lists`` () =
-    Attr.merge
-        [ Attr.class' "ma2" ]
-        [ Attr.id "some-el"; Attr.class' "bg-red"; Attr.readonly ]
-    |> should equal [ Attr.class' "ma2 bg-red"; Attr.id "some-el"; Attr.readonly ]
-
-[<Fact>]
-let ``Attr.merge should work with bogus "class" NonValeAttr`` () =
-    Attr.merge
-        [ Attr.class' "ma2" ]
-        [ Attr.id "some-el"; Attr.class' "bg-red"; NonValueAttr("class") ]
-    |> should equal [ Attr.class' "ma2 bg-red"; Attr.id "some-el" ]
-
-[<Fact>]
 let ``Text.empty should be empty`` () =
     renderNode Text.empty |> should equal String.Empty
 
@@ -134,3 +120,17 @@ let ``Should produce valid html doc for large result`` () =
     let render = renderHtml doc
     render |> fun s -> s.Substring(0, 27) |> should equal "<!DOCTYPE html><html><body>"
     render |> fun s -> s.Substring(s.Length - 14, 14) |> should equal "</body></html>"
+
+[<Fact>]
+let ``Attr.merge should combine two XmlAttribute lists`` () =
+    Attr.merge
+        [ Attr.class' "ma2" ]
+        [ Attr.id "some-el"; Attr.class' "bg-red"; Attr.readonly ]
+    |> should equal [ Attr.class' "ma2 bg-red"; Attr.id "some-el"; Attr.readonly ]
+
+[<Fact>]
+let ``Attr.merge should work with bogus "class" NonValeAttr`` () =
+    Attr.merge
+        [ Attr.class' "ma2" ]
+        [ Attr.id "some-el"; Attr.class' "bg-red"; NonValueAttr("class") ]
+    |> should equal [ Attr.class' "ma2 bg-red"; Attr.id "some-el" ]

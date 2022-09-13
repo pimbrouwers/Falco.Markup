@@ -40,7 +40,7 @@ module Attr =
 
         // inputs are now merged, convert dictionary back into of XmlAttribute
         [
-            for Operators.KeyValue (name, values) in merged do
+            for KeyValue (name, values) in merged do
                 match values with
                 | None ->
                     NonValueAttr name
