@@ -4,6 +4,8 @@
 [![Build Status](https://travis-ci.org/pimbrouwers/Falco.svg?branch=master)](https://travis-ci.org/pimbrouwers/Falco)
 
 ```fsharp
+open Falco.Markup
+
 let doc =
     Elem.html [] [
         Elem.body [ Attr.class' "100-vh" ] [
