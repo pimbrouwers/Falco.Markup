@@ -1,7 +1,7 @@
 # Falco.Markup
 
 [![NuGet Version](https://img.shields.io/nuget/v/Falco.Markup.svg)](https://www.nuget.org/packages/Falco.Markup)
-[![Build Status](https://travis-ci.org/pimbrouwers/Falco.svg?branch=master)](https://travis-ci.org/pimbrouwers/Falco)
+[![build](https://github.com/pimbrouwers/Falco.Mark/actions/workflows/build.yml/badge.svg)](https://github.com/pimbrouwers/Falco.Mark/actions/workflows/build.yml)
 
 ```fsharp
 open Falco.Markup
