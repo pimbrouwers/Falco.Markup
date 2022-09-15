@@ -31,7 +31,7 @@ renderHtml doc
 
 ## Overview
 
-Falco.Markup is broken down into three primary modules. `Elem`, `Attr` and `Text`, which are used to generate elements, attributes and text nodes respecitvely. Each module contain a suite of functions mapping to the various element/attribute/node names. But can also be extended to create custom elements and attributes.
+Falco.Markup is broken down into three primary modules. `Elem`, `Attr` and `Text`, which are used to generate elements, attributes and text nodes respectively. Each module contain a suite of functions mapping to the various element/attribute/node names. But can also be extended to create custom elements and attributes.
 
 Primary elements are broken down into two types, `ParentNode` or `SelfClosingNode`.
 
@@ -140,9 +140,9 @@ let doc (person : Person) =
 
 ### Merging Attributes
 
-The markup module allows you to easily create components, an excellent way to reduce code repetition in your UI. To support runtime customization, it is advisable to ensure components (or reusable markup blocks) retain a similar function "shape" to standard elements. That being, `XmlAttribte list -> XmlNode list -> XmlNode`.
+The markup module allows you to easily create components, an excellent way to reduce code repetition in your UI. To support runtime customization, it is advisable to ensure components (or reusable markup blocks) retain a similar function "shape" to standard elements. That being, `XmlAttribute list -> XmlNode list -> XmlNode`.
 
-This means that you will inevitably end up needing to combine your predefined `XmlAttribute list` with a list provided at runtime. To facilitate this, the `Attr.merge` function will group attributes by key, and concat the values in the case of `KeyValueAttribute`.
+This means that you will inevitably end up needing to combine your predefined `XmlAttribute list` with a list provided at runtime. To facilitate this, the `Attr.merge` function will group attributes by key, and concatenate the values in the case of `KeyValueAttribute`.
 
 ```fsharp
 open Falco.Markup
@@ -196,7 +196,7 @@ module Elem =
     let name = Elem.create "name"
 
 module Attr =
-    let soldOut = Attr.createBool "soldout"
+    let soldOut = Attr.createBool "soldOut"
 
 let xmlDoc =
     Elem.books [] [
