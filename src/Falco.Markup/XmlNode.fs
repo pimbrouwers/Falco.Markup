@@ -21,7 +21,7 @@ type XmlNode =
     | TextNode        of string
 
 [<AbstractClass; Sealed>]
-type StringBuilderCache private() =
+type StringBuilderCache internal() =
     // The value 360 was chosen in discussion with performance experts as a compromise between using
     // as litle memory (per thread) as possible and still covering a large part of short-lived
     // StringBuilder creations on the startup path of VS designers.
@@ -55,7 +55,7 @@ type StringBuilderCache private() =
         if sb.Capacity <= _maxBuilderSize then StringBuilderCache.cachedInstance <- sb
         result
 
-module internal XmlNode =
+module internal XmlNodeSerializer =
     let [<Literal>] _openChar = '<'
     let [<Literal>] _closeChar = '>'
     let [<Literal>] _term = '/'
@@ -117,18 +117,18 @@ module XmlNodeRenderer =
     let renderNode (tag : XmlNode) =
         let sb = StringBuilderCache.Acquire()
         let w = new StringWriter(sb, CultureInfo.InvariantCulture)
-        XmlNode.serialize(w, tag)
+        XmlNodeSerializer.serialize(w, tag)
 
     /// Render XmlNode as HTML string
     let renderHtml (tag : XmlNode) =
         let sb = StringBuilderCache.Acquire()
         let w = new StringWriter(sb, CultureInfo.InvariantCulture)
         w.Write "<!DOCTYPE html>"
-        XmlNode.serialize(w, tag)
+        XmlNodeSerializer.serialize(w, tag)
 
     /// Render XmlNode as XML string
     let renderXml (tag : XmlNode) =
         let sb = StringBuilderCache.Acquire()
         let w = new StringWriter(sb, CultureInfo.InvariantCulture)
         w.Write "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-        XmlNode.serialize(w, tag)
+        XmlNodeSerializer.serialize(w, tag)
