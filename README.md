@@ -94,7 +94,7 @@ let divider =
 let master (title : string) (content : XmlNode list) =
     Elem.html [ Attr.lang "en" ] [
         Elem.head [] [
-            Elem.title [] [ Text.raw "Sample App" ]
+            Elem.title [] [ Text.raw title ]
         ]
         Elem.body [] content
     ]
