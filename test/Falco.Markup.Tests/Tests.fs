@@ -1,4 +1,4 @@
-﻿module Falco.Tests.Markup
+module Falco.Tests.Markup
 
 open System
 open Falco.Markup
@@ -58,6 +58,11 @@ let ``Should produce valid html doc`` () =
                 Elem.div [ Attr.class' "my-class" ] [
                     Elem.h1 [] [ Text.raw "hello" ] ] ] ]
     renderHtml doc |> should equal "<!DOCTYPE html><html><body><div class=\"my-class\"><h1>hello</h1></div></body></html>"
+
+[<Fact>]
+let ``Should create valid html button`` () =
+    let doc = Elem.button [ Attr.onclick "console.log(\"test\")"] [ Text.raw "click me" ]
+    renderNode doc |> should equal "<button onclick=\"console.log(\"test\")\">click me</button>";
 
 [<Fact>]
 let ``Should produce valid xml doc`` () =
