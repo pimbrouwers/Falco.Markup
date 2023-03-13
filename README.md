@@ -26,12 +26,13 @@ renderHtml doc
 ## Design Goals
 
 - Provide a tool to generate _any_ form of angle-bracket markup.
+- Must be [performant](#performance) and memory efficient.
 - Should be simple, extensible and integrate with existing .NET libraries.
 - Can be easily learned.
 
 ## Overview
 
-Falco.Markup is broken down into three primary modules. `Elem`, `Attr` and `Text`, which are used to generate elements, attributes and text nodes respectively. Each module contain a suite of functions mapping to the various element/attribute/node names. But can also be extended to create custom elements and attributes.
+Falco.Markup is broken down into three primary modules, `Elem`, `Attr` and `Text`, which are used to generate elements, attributes and text nodes respectively. Each module contain a suite of functions mapping to the various element/attribute/node names. But can also be extended to create custom elements and attributes.
 
 Primary elements are broken down into two types, `ParentNode` or `SelfClosingNode`.
 
@@ -231,6 +232,26 @@ let svgDrawing =
     ]
 
 let svg = renderNode svgDrawing
+```
+
+## Performance
+
+You'll find the result of a simple [benchmark](benchmarks/) below, where Falco.Markup is compared to native `StringBuilder` usage as well as some other markup libraries.
+
+```shell
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19044.2604 (21H2)
+Intel Core i7-7500U CPU 2.70GHz (Kaby Lake), 1 CPU, 4 logical and 2 physical cores
+.NET SDK=7.0.201
+  [Host]     : .NET 6.0.14 (6.0.1423.7309), X64 RyuJIT DEBUG
+  DefaultJob : .NET 6.0.14 (6.0.1423.7309), X64 RyuJIT
+
+
+|        Method |      Mean |     Error |    StdDev | Ratio | RatioSD |   Gen 0 | Allocated |
+|-------------- |----------:|----------:|----------:|------:|--------:|--------:|----------:|
+| StringBuilder |  2.419 us | 0.0481 us | 0.0591 us |  1.00 |    0.00 |  6.6643 |     14 KB |
+|         Falco |  3.829 us | 0.0338 us | 0.0300 us |  1.58 |    0.04 |  8.1253 |     17 KB |
+|       Giraffe |  7.402 us | 0.0735 us | 0.0688 us |  3.04 |    0.08 |  9.0027 |     18 KB |
+|       Scriban | 26.125 us | 0.3734 us | 0.2915 us | 10.73 |    0.38 | 16.5405 |     34 KB |
 ```
 
 ## Find a bug?
