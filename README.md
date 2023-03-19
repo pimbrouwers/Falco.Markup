@@ -14,18 +14,18 @@ let doc =
 renderHtml doc
 ```
 
-[Falco.Markup](https://github.com/pimbrouwers/Falco.Markup) is an XML markup module that can be used to produce _any_ form of angle-bracket markup (i.e. HTML, SVG, XML etc.).
+[Falco.Markup](https://github.com/pimbrouwers/Falco.Markup) is an XML markup module that can be used to produce any form of angle-bracket markup (i.e. HTML, SVG, XML etc.).
 
 ## Key Features
 
-- Use native F# to produce any form of angle-bracket markup.
-- Very simple to create reusable blocks of code (i.e., partial views and components).
-- Easily extended by creating custom tags and attributes.
-- Compiled as part of your assembly, leading to improved performance and simpler deployments.
+- Use native F# to produce any form of [angle-bracket markup](#html).
+- Simple to create reusable blocks of code (i.e., partial views and components).
+- Easily extended by creating [custom tags and attributes](#custom-elements--attributes).
+- Compiled as part of your assembly, leading to improved [performance](#performance) and simpler deployments.
 
 ## Design Goals
 
-- Provide a tool to generate _any_ form of angle-bracket markup.
+- Provide a tool to generate any form of [angle-bracket markup](#html).
 - Must be [performant](#performance) and memory efficient.
 - Should be simple, extensible and integrate with existing .NET libraries.
 - Can be easily learned.
