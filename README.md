@@ -22,6 +22,7 @@ renderHtml doc
 - Simple to create reusable blocks of code (i.e., partial views and components).
 - Easily extended by creating [custom tags and attributes](#custom-elements--attributes).
 - Compiled as part of your assembly, leading to improved [performance](#performance) and simpler deployments.
+- Provides strongly typed functions matching the full HTML [spec](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference).
 
 ## Design Goals
 
@@ -29,6 +30,7 @@ renderHtml doc
 - Must be [performant](#performance) and memory efficient.
 - Should be simple, extensible and integrate with existing .NET libraries.
 - Can be easily learned.
+- Match HTML [spec](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference) as closely as possible.
 
 ## Overview
 
