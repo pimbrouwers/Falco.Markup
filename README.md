@@ -141,11 +141,95 @@ let doc (person : Person) =
     ]
 ```
 
+### Forms
+
+Forms are the lifeblood of HTML applications. A basic form using the markup module would like the following:
+
+```fsharp
+Elem.form [ Attr.method "post"; Attr.action "/submit" ] [
+    Elem.label [ Attr.for' "name" ] [ Text.raw "Name" ]
+    Elem.input [ Attr.id "name"; Attr.name "name"; Attr.typeText ]
+
+    Elem.input [ Attr.typeSubmit ]
+]
+```
+
+Expanding on this, we can create a more complex form involving multiple inputs and input types as follows:
+
+```fsharp
+Elem.form [ Attr.method "post"; Attr.action "/submit" ] [
+    Elem.label [ Attr.for' "name" ] [ Text.raw "Name" ]
+    Elem.input [ Attr.id "name"; Attr.name "name" ]
+
+    Elem.label [ Attr.for' "bio" ] [ Text.raw "Bio" ]
+    Elem.textarea [ Attr.name "id"; Attr.name "bio" ] []
+
+    Elem.label [ Attr.for' "hobbies" ] [ Text.raw "Hobbies" ]
+    Elem.select [ Attr.id "hobbies"; Attr.name "hobbies"; Attr.multiple ] [
+        Elem.option [ Attr.value "programming" ] [ Text.raw "Programming" ]
+        Elem.option [ Attr.value "diy" ] [ Text.raw "DIY" ]
+        Elem.option [ Attr.value "basketball" ] [ Text.raw "Basketball" ]
+    ]
+
+    Elem.fieldset [] [
+        Elem.legend [] [ Text.raw "Do you like chocolate?" ]
+        Elem.label [] [
+            Text.raw "Yes"
+            Elem.input [ Attr.typeRadio; Attr.name "chocolate"; Attr.value "yes" ] ]
+        Elem.label [] [
+            Text.raw "No"
+            Elem.input [ Attr.typeRadio; Attr.name "chocolate"; Attr.value "no" ] ]
+    ]
+
+    Elem.fieldset [] [
+        Elem.legend [] [ Text.raw "Subscribe to our newsletter" ]
+        Elem.label [] [
+            Text.raw "Receive updates about product"
+            Elem.input [ Attr.typeCheckbox; Attr.name "newsletter"; Attr.value "product" ] ]
+        Elem.label [] [
+            Text.raw "Receive updates about company"
+            Elem.input [ Attr.typeCheckbox; Attr.name "newsletter"; Attr.value "company" ] ]
+    ]
+
+    Elem.input [ Attr.typeSubmit ]
+]
+```
+
+A simple but useful _meta_-element `Elem.control` can reduce the verbosity required to create form outputs. The same form would look like:
+
+```fsharp
+Elem.form [ Attr.method "post"; Attr.action "/submit" ] [
+    Elem.control "name" [] [ Text.raw "Name" ]
+
+    Elem.controlTextarea "bio" [] [ Text.raw "Bio" ] []
+
+    Elem.controlSelect "hobbies" [ Attr.multiple ] [ Text.raw "Hobbies" ] [
+        Elem.option [ Attr.value "programming" ] [ Text.raw "Programming" ]
+        Elem.option [ Attr.value "diy" ] [ Text.raw "DIY" ]
+        Elem.option [ Attr.value "basketball" ] [ Text.raw "Basketball" ]
+    ]
+
+    Elem.fieldset [] [
+        Elem.legend [] [ Text.raw "Do you like chocolate?" ]        
+        Elem.control "chocolate" [ Attr.id "chocolate_yes"; Attr.typeRadio ] [ Text.raw "yes" ]
+        Elem.control "chocolate" [ Attr.id "chocolate_no"; Attr.typeRadio ] [ Text.raw "no" ]
+    ]
+
+    Elem.fieldset [] [
+        Elem.legend [] [ Text.raw "Subscribe to our newsletter" ]
+        Elem.control "newsletter" [ Attr.id "newsletter_product"; Attr.typeCheckbox ] [ Text.raw "Receive updates about product" ]
+        Elem.control "newsletter" [ Attr.id "newsletter_company"; Attr.typeCheckbox ] [ Text.raw "Receive updates about company" ]
+    ]
+
+    Elem.input [ Attr.typeSubmit ]
+]
+```
+
 ### Merging Attributes
 
 The markup module allows you to easily create components, an excellent way to reduce code repetition in your UI. To support runtime customization, it is advisable to ensure components (or reusable markup blocks) retain a similar function "shape" to standard elements. That being, `XmlAttribute list -> XmlNode list -> XmlNode`.
 
-This means that you will inevitably end up needing to combine your predefined `XmlAttribute list` with a list provided at runtime. To facilitate this, the `Attr.merge` function will group attributes by key, and concatenate the values in the case of `KeyValueAttribute`.
+This means that you will inevitably end up needing to combine your predefined `XmlAttribute list` with a list provided at runtime. To facilitate this, the `Attr.merge` function will group attributes by key, and intelligently concatenate the values in the case of additive attributes (i.e., `class`, `style` and `accept`).
 
 ```fsharp
 open Falco.Markup
