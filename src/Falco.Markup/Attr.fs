@@ -439,6 +439,21 @@ module Attr =
     //
     // Aliases
 
+    /// Alias for `enctype=application/x-www-form-urlencoded`
+    let enctypeForm = enctype "application/x-www-form-urlencoded"
+
+    /// Alias for `enctype=multipart/form-data`
+    let enctypeMultipart = enctype "multipart/form-data"
+    
+    // Alias for `method=post`
+    let methodPost = method "post"
+
+    // Alias for `method=get`
+    let methodGet = method "get"
+
+    // Alias for `method=dialog`
+    let methodDialog = method "dialog"
+
     /// Alias for `target=_self`
     let targetSelf = target "_self"
 
