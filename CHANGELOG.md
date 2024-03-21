@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- @MaciekWin3 - Missing "on" prefix for JavaScript handlers.
+- [MaciekWin3](https://github.com/pimbrouwers/Falco.Markup/pull/4) - Missing "on" prefix for JavaScript handlers.
 
 ## [1.0.1] 2022-09-14
 
