@@ -12,13 +12,14 @@ module Attr =
     let createBool (key : string) =
         NonValueAttr key
 
+    let private additiveAttributes =
+        dict [
+            "class", " "
+            "style", "; "
+            "accept", ", " ]
+            
     /// Merge two XmlAttribute lists
     let merge (attrs1 : XmlAttribute list) (attrs2 : XmlAttribute list) =
-        let additiveAttributes =
-            dict [
-                "class", " "
-                "style", "; "
-                "accept", ", " ]
 
         let joinValues (sep : string) v2 v1 = String.Concat([| v1; sep; v2 |])
 
