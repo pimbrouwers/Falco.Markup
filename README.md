@@ -9,7 +9,7 @@ open Falco.Markup
 let doc =
     Elem.html [] [
         Elem.body [ Attr.class' "100-vh" ] [
-            Elem.h1 [] [ Text.raw "Hello world!" ] ] ]
+            Text.h1 "Hello world!" ] ]
 
 renderHtml doc
 ```
@@ -43,7 +43,7 @@ Primary elements are broken down into two types, `ParentNode` or `SelfClosingNod
 ```fsharp
 let markup =
     Elem.div [ Attr.class' "heading" ] [
-        Elem.h1 [] [ Text.raw "Hello world!" ] ]
+        Text.h1 "Hello world!" ]
 ```
 
 `SelfClosingNode` elements are self-closing tags. Represented as functions that receive one input: attributes.
@@ -60,7 +60,7 @@ Text is represented using the `TextNode` and created using one of the functions 
 let markup =
     Elem.div [] [
         Text.comment "An HTML comment"
-        Elem.p [] [ Text.raw "A paragraph" ]
+        Text.p "A paragraph"
         Elem.p [] [ Text.rawf "Hello %s" "Jim" ]
         Elem.code [] [ Text.enc "<div>Hello</div>" ] // HTML encodes text before rendering
     ]
@@ -105,16 +105,16 @@ let master (title : string) (content : XmlNode list) =
 // Views
 let homeView =
     master "Homepage" [
-        Elem.h1 [] [ Text.raw "Homepage" ]
+        Text.h1 "Homepage"
         divider
-        Elem.p [] [ Text.raw "Lorem ipsum dolor sit amet, consectetur adipiscing."]
+        Text.p "Lorem ipsum dolor sit amet, consectetur adipiscing."
     ]
 
 let aboutView =
     master "About Us" [
-        Elem.h1 [] [ Text.raw "About" ]
+        Text.h1 "About"
         divider
-        Elem.p [] [ Text.raw "Lorem ipsum dolor sit amet, consectetur adipiscing."]
+        Text.p "Lorem ipsum dolor sit amet, consectetur adipiscing."
     ]
 ```
 
@@ -134,8 +134,8 @@ let doc (person : Person) =
         ]
         Elem.body [] [
             Elem.main [] [
-                Elem.h1 [] [ Text.raw "Sample App" ]
-                Elem.p [] [ Text.rawf "%s %s" person.First person.Last ]
+                Text.h1 "Sample App"
+                Text.p $"{person.First} {person.Last}"
             ]
         ]
     ]
@@ -210,7 +210,7 @@ Elem.form [ Attr.method "post"; Attr.action "/submit" ] [
     ]
 
     Elem.fieldset [] [
-        Elem.legend [] [ Text.raw "Do you like chocolate?" ]        
+        Elem.legend [] [ Text.raw "Do you like chocolate?" ]
         Elem.control "chocolate" [ Attr.id "chocolate_yes"; Attr.typeRadio ] [ Text.raw "yes" ]
         Elem.control "chocolate" [ Attr.id "chocolate_no"; Attr.typeRadio ] [ Text.raw "no" ]
     ]
@@ -258,13 +258,13 @@ let master (title : string) (content : XmlNode list) =
 let homepage =
     master "Homepage" [
         heading [ Attr.class' "red" ] [ Text.raw "Welcome to the homepage" ]
-        Elem.p [] [ Text.raw "Lorem ipsum dolor sit amet, consectetur adipiscing."]
+        Text.p "Lorem ipsum dolor sit amet, consectetur adipiscing."
     ]
 
 let homepage =
     master "About Us" [
         heading [ Attr.class' "purple" ] [ Text.raw "This is what we're all about" ]
-        Elem.p [] [ Text.raw "Lorem ipsum dolor sit amet, consectetur adipiscing."]
+        Text.p "Lorem ipsum dolor sit amet, consectetur adipiscing."
     ]
 ```
 
