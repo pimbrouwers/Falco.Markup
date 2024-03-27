@@ -382,8 +382,6 @@ module Elem =
     /// Labelled textarea element (i.e., `<label for="item">Item<textarea>...</textarea></label>`)
     let controlTextarea name attr labelElement content = control' (fun attr -> textarea attr content) name attr labelElement
 
-// Elem.selectControl "season" [] 
-
     //
     // Interactive elements
     
