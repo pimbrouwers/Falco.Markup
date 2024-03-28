@@ -541,7 +541,7 @@ module Attr =
     let valueEmpty = value ""
 
     /// Alias for `value={str}` by invoking `_.ToString()` on input
-    let valueString x =
+    let inline valueString x =
         value (x.ToString())
 
     /// Alias for `value={str}` by invoking `_.ToString(format)` on input
