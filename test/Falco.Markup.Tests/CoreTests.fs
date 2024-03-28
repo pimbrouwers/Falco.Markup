@@ -63,16 +63,16 @@ let ``Should produce valid html doc`` () =
 let ``Elem.control should render label with nested input`` () =
     let name = "email_address"
     let label = "Email Address"
-    let expected = Elem.label [ Attr.for' name ] [ 
+    let expected = Elem.label [ Attr.for' name ] [
         Elem.span [ Attr.class' "form-label" ] [ Text.raw label ]
         Elem.input [ Attr.id name; Attr.name name; Attr.typeEmail; Attr.required ] ]
-    
-    Elem.control name [ Attr.typeEmail; Attr.required  ] [ 
+
+    Elem.control name [ Attr.typeEmail; Attr.required  ] [
         Elem.span [ Attr.class' "form-label" ] [ Text.raw label ] ]
     |> should equal expected
 
 [<Fact>]
-let ``Text shortcuts should produce valid XmlNode`` () = 
+let ``Text shortcuts should produce valid XmlNode`` () =
     Text.h1 "falco" |> should equal <| Elem.h1 [] [ Text.raw "falco" ]
     Text.h2 "falco" |> should equal <| Elem.h2 [] [ Text.raw "falco" ]
     Text.h3 "falco" |> should equal <| Elem.h3 [] [ Text.raw "falco" ]
@@ -108,6 +108,31 @@ let ``Text shortcuts should produce valid XmlNode`` () =
     Text.time "falco" |> should equal <| Elem.time [] [ Text.raw "falco" ]
     Text.u "falco" |> should equal <| Elem.u [] [ Text.raw "falco" ]
     Text.var "falco" |> should equal <| Elem.var [] [ Text.raw "falco" ]
+
+[<Fact>]
+let ``Attr.valueString should invoke ToString member with no parameters`` () =
+    Attr.valueString 1 |> should equal <| Attr.value "1"
+
+[<Fact>]
+let ``Attr.valueStringf should invoke ToString member with format parameter`` () =
+    Attr.valueStringf "F2" 1.2345 |> should equal <| Attr.value "1.23"
+
+[<Fact>]
+let ``Attr.value{Type} should produce expected string`` () =
+    let dt = (DateTime(1986,12,12,5,30,0))
+    Attr.valueDate dt |> should equal <| Attr.value "1986-12-12"
+    Attr.valueDatetimeLocal dt |> should equal <| Attr.value "1986-12-12T05:30:00"
+    Attr.valueMonth dt |> should equal <| Attr.value "1986-12"
+    Attr.valueTime (TimeSpan(12,12,0)) |> should equal <| Attr.value "12:12"
+    Attr.valueWeek dt |> should equal <| Attr.value "1986-W50"
+
+[<Fact>]
+let ``Attr.valueOption + Attr.value{Type} should produce expected attribute`` () =
+    let dt = Some (DateTime(1986,12,12,5,30,0))
+    Attr.valueOption Attr.valueDate dt |> should equal <| Attr.value "1986-12-12"
+    Attr.valueOption Attr.valueDatetimeLocal dt |> should equal <| Attr.value "1986-12-12T05:30:00"
+    Attr.valueOption Attr.valueDate None |> should equal <| Attr.valueEmpty
+    Attr.valueOption Attr.valueDatetimeLocal None |> should equal <| Attr.valueEmpty
 
 [<Fact>]
 let ``Should create valid html button`` () =

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] 2024-03-28
+
+###
+
+- `Attr.valueEmpty`, alias for `value=""`.
+- `Attr.valueString`, alias for `value={str}` by invoking `_.ToString()` on input.
+- `Attr.valueStringf`, ar `value={str}` by invoking `_.ToString(format)` on input.
+- `Attr.valueDate`, alias for `Attr.valueStringf "yyyy-MM-dd" dt`.
+- `Attr.valueDatetimeLocal`, alias for `Attr.valueStringf "s" dt`.
+- `Attr.valueMonth`, alias for `Attr.valueStringf "yyyy-MM"`.
+- `Attr.valueTime`, alias for `Attr.valueStringf "hh\:mm" time` .
+- `Attr.valueWeek`, alias for `value={yyyy-W#}` (ex: `value=1986-W50`).
+
 ## [1.1.0] 2024-03-25
 
 ### Added

@@ -17,7 +17,7 @@ module Text =
         TextNode content
 
     /// Text XmlNode constructor that will invoke "sprintf template"
-    let rawf (template : Printf.StringFormat<'a, XmlNode>) =
+    let rawf (template : Printf.StringFormat<'T, XmlNode>) =
         Printf.kprintf raw template
 
     /// HTML Comment Text XmlNode construction

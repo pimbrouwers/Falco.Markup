@@ -146,9 +146,14 @@ let doc (person : Person) =
 Forms are the lifeblood of HTML applications. A basic form using the markup module would like the following:
 
 ```fsharp
-Elem.form [ Attr.method "post"; Attr.action "/submit" ] [
+let dt = DateTime.Now
+
+Elem.form [ Attr.methodPost; Attr.action "/submit" ] [
     Elem.label [ Attr.for' "name" ] [ Text.raw "Name" ]
     Elem.input [ Attr.id "name"; Attr.name "name"; Attr.typeText ]
+
+    Elem.label [ Attr.for' "birthdate" ] [ Text.raw "Birthday" ]
+    Elem.input [ Attr.id "birthdate"; Attr.name "birthdate"; Attr.typeDate; Attr.valueDate dt ]
 
     Elem.input [ Attr.typeSubmit ]
 ]
@@ -223,6 +228,33 @@ Elem.form [ Attr.method "post"; Attr.action "/submit" ] [
 
     Elem.input [ Attr.typeSubmit ]
 ]
+```
+
+### Attribute Value
+
+One of the more common places of sytanctic complexity is with `Attr.value` which expects, like all `Attr` functions, `string` input. Some helpers exist to simplify this.
+
+```fsharp
+let dt = DateTime.Now
+
+Elem.input [ Attr.typeDate; Attr.valueStringf "yyyy-MM-dd" dt ]
+
+// you could also just use:
+Elem.input [ Attr.typeDate; Attr.valueDate dt ] // formatted to ISO-8601 yyyy-MM-dd
+
+// or,
+Elem.input [ Attr.typeMonth; Attr.valueMonth dt ] // formatted to ISO-8601 yyyy-MM
+
+// or,
+Elem.input [ Attr.typeWeek; Attr.valueWeek dt ] // formatted to Gregorian yyyy-W#
+
+// it works for TimeSpan too:
+let ts = TimeSpan(12,12,0)
+Elem.input [ Attr.typeTime; Attr.valueTime ts ] // formatted to hh:mm
+
+// there is a helper for Option too:
+let someTs = Some ts
+Elem.input [ Attr.typeTime; Attr.valueOption Attr.valueTime someTs ]
 ```
 
 ### Merging Attributes

@@ -2,6 +2,7 @@ namespace Falco.Markup
 
 open System
 open System.Collections.Generic
+open System.Globalization
 
 module Attr =
     /// XmlAttribute KeyValueAttr constructor
@@ -536,6 +537,44 @@ module Attr =
     /// Alias for `type=week`
     let typeWeek = type' "week"
 
+    /// Alias for `value=""`.
+    let valueEmpty = value ""
+
+    /// Alias for `value={str}` by invoking `_.ToString()` on input
+    let valueString x =
+        value (x.ToString())
+
+    /// Alias for `value={str}` by invoking `_.ToString(format)` on input
+    let inline valueStringf format (x : ^T when ^T : (member ToString : string -> string)) = 
+        value (x.ToString(format))
+
+    /// Alias for `Attr.valueStringf "yyyy-MM-dd" dt`
+    let valueDate (dt : DateTime) =
+        valueStringf "yyyy-MM-dd" dt
+
+    /// Alias for `Attr.valueStringf "s" dt`
+    let valueDatetimeLocal (dt : DateTime) = 
+        valueStringf "s" dt 
+
+    /// Alias for `Attr.valueStringf "yyyy-MM"`
+    let valueMonth (dt : DateTime) =
+        valueStringf "yyyy-MM" dt
+
+    /// Alias for `Attr.valueStringf "hh\:mm" time` 
+    let valueTime (time : TimeSpan) = 
+        valueStringf "hh\:mm" time
+       
+    let private cal = System.Globalization.GregorianCalendar(GregorianCalendarTypes.USEnglish)
+
+    /// Alias for `value={yyyy-W#}` (ex: `value=1986-W50`)
+    let valueWeek (dt : DateTime) = 
+        let wk = cal.GetWeekOfYear(dt, CalendarWeekRule.FirstDay, DayOfWeek.Monday).ToString("00")
+        let yr = dt.ToString("yyyy")
+        value (sprintf "%s-W%s" yr wk)
+    
+    /// Invoke `fn` if `Some` otherwise return `value=""`
+    let valueOption fn opt = 
+        match opt with Some x -> fn x | None -> valueEmpty
 
     //
     // Events
