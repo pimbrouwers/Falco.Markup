@@ -22,7 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CoreTests.fs" />
+    <Compile Include="AttrTests.fs" />
+    <Compile Include="ElemTests.fs" />
+    <Compile Include="TextTests.fs" />
+    <Compile Include="SvgTests.fs" />
     <Compile Include="TestHelperTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
